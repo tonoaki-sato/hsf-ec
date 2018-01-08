@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/profile';
 
     /**
      * Create a new controller instance.
@@ -62,10 +62,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+    	$role = \Config::get('const.role_of_general');
+    	if (empty($data['passphrase']) === false) {
+    		if ($data['passphrase'] === \Config::get('const.passphrase_for_secretary')) {
+    			$role = \Config::get('const.role_of_secretary');
+    		}
+    	}
+logger($role);
         return User::create([
             'name' => $data['name'],
+            'role' => $role,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Overwrite RegistersUsers@showRegistrationForm()
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
+    public function showRegistrationForm($passphrase = null)
+    {
+        return view('auth.register', compact('passphrase'));
     }
 }
