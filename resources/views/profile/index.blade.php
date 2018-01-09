@@ -2,6 +2,21 @@
 
 @section('content')
 <div class="container">
+
+    @if (Session::has('is_first') === true)
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+            <div class="text-success"><strong>利用登録が完了しました。</strong></div>
+            ホームページの機能を利用する場合は上のメニューの「ダッシュボード」をクリックしてください。<br />
+            操作を終了する場合は上のメニューの「{{ $user->name }}」をクリックして、ログアウトをクリックしてください。<br />
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
