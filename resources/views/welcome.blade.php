@@ -11,6 +11,9 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
@@ -46,7 +49,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 40px;
             }
 
             .links > a {
@@ -78,16 +81,24 @@
             @endif
 
             <div class="content">
+                <div class="text-danger">
+                    @if (Session::has('message') === true)
+                    	{{ session('message') }}
+                    @else
+                    	&nbsp;
+                    @endif
+                </div>
+
                 <div class="title m-b-md">
-                    Laravel
+                    保土ケ谷宿場まつり<br />実行委員会
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="http://syukuba.net/" target="_blank">公式ホームページ</a>
+                    <a href="https://www.facebook.com/hodogayasyukubafest/" target="_blank">Facebook</a>
+                    <a href="https://ameblo.jp/komachi-hodogaya/" target="_blank">小町のブログ</a>
+                    <a href="https://www.instagram.com/shukubakun/" target="_blank">宿場くんInstagram</a>
+                    <a href="https://twitter.com/shukubakun" target="_blank">宿場くんTwitter</a>
                 </div>
             </div>
         </div>

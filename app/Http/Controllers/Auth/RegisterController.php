@@ -68,7 +68,6 @@ class RegisterController extends Controller
     			$role = \Config::get('const.role_of_secretary');
     		}
     	}
-logger($role);
         return User::create([
             'name' => $data['name'],
             'role' => $role,
@@ -85,6 +84,11 @@ logger($role);
      */
     public function showRegistrationForm($passphrase = null)
     {
+        //
+        if (empty($passphrase) === true) {
+        	return redirect('/')->with('message', 'このリンクは使用できません。');
+        }
+        
         return view('auth.register', compact('passphrase'));
     }
 }
