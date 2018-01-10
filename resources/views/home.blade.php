@@ -14,6 +14,10 @@
                         </div>
                     @endif
 
+                    <div>
+                      <a href="#" class="stech_btn">議事録
+                      </a>
+                    </div>
                     You are logged in!<br />
                     ・議事録（一覧、読む、作る）<br />
                     ・メーリングリスト（一覧、読む）<br />
