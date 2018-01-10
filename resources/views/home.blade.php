@@ -15,7 +15,7 @@
                     @endif
 
                     <div>
-                      <a href="#" class="stech_btn">議事録
+                      <a href="{{ route('minutes') }}" class="stech_btn">議事録
                       </a>
                     </div>
                     You are logged in!<br />
