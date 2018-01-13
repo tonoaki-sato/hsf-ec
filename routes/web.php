@@ -30,7 +30,9 @@ Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('r
 
 // 議事録
 Route::get('/minutes', 'MinutesController@index')->name('minutes');
-Route::get('/minutes/add', 'MinutesController@add');
+Route::get('/minutes/create', 'MinutesController@create')->name('minutes.create');
+Route::post('/minutes/store', 'MinutesController@store')->name('minutes.store');
+
 Route::get('/minutes/show/{{id}}', 'MinutesController@show');
 Route::get('/minutes/edit/{{id}}', 'MinutesController@edit');
 

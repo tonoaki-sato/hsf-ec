@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Minute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,8 +28,11 @@ class MinutesController extends Controller
     {
         // ログインユーザー取得
         $user = Auth::user();
+        // 議事録取得
+        $minute = new Minute;
+        $minutes = $minute->all();
         //
-        return view('minutes.index', compact('user'));
+        return view('minutes.index', compact('user', 'minutes'));
     }
 
     /**
@@ -35,12 +40,39 @@ class MinutesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function create()
     {
+        // モデル
+        $model = new User();
         // ログインユーザー取得
         $user = Auth::user();
+        // ユーザーリスト取得
+        $users = $model->all();
         //
-        return view('minutes.add', compact('user'));
+        return view('minutes.create', compact('user', 'users'));
+    }
+
+    /**
+     * Exec the minutes insert.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // モデル
+        $model = new Minute;
+        // データセット
+        $model->title = $request->title;
+        $model->start_at = $request->start_at;
+        $model->attendees = $request->attendees;
+        $model->place = $request->place;
+        $model->chairman = $request->chairman;
+        $model->secretary = $request->secretary;
+        $model->contents = $request->contents;
+        // 登録
+        $model->save();
+        // リダイレクト
+        return redirect('minutes');
     }
 
     /**
