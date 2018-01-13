@@ -14,19 +14,15 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <a href="{{ route('minutes.create') }}">議事録を作る</a>
             </li>
+            @foreach ($minutes as $element)
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              <a href="#">Cras justo odio</a>
-              <span class="badge badge-primary">14</span>
-              <a href="#">Cras justo odio</a>
+              <div>{{ $element->title }}</div>
+              <nav class="nav">
+                <a class="nav-link" href="{{ route('minutes.show', ['id' => $element->id]) }}">読む</a>
+                <a class="nav-link" href="{{ route('minutes.destroy', ['id' => $element->id]) }}">削除する</a>
+              </nav>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="badge badge-primary badge-pill">2</span>
-              Dapibus ac facilisis in
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="badge badge-primary badge-pill">1</span>
-              Morbi leo risus
-            </li>
+            @endforeach
           </ul>
         </div>
 

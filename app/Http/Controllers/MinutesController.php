@@ -28,10 +28,11 @@ class MinutesController extends Controller
     {
         // ログインユーザー取得
         $user = Auth::user();
-        // 議事録取得
-        $minute = new Minute;
-        $minutes = $minute->all();
-        //
+        // モデル
+        $model = new Minute;
+        // データ取得
+        $minutes = $model->orderBy('id', 'DESC')->get();
+        // 
         return view('minutes.index', compact('user', 'minutes'));
     }
 
@@ -94,6 +95,19 @@ class MinutesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit()
+    {
+        // ログインユーザー取得
+        $user = Auth::user();
+        //
+        return view('minutes.edit', compact('user'));
+    }
+
+    /**
+     * Delete the minutes data.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy()
     {
         // ログインユーザー取得
         $user = Auth::user();
