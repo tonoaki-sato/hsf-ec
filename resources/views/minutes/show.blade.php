@@ -7,7 +7,14 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
 
-        <div class="panel-heading">議事録を見る</div>
+        <div class="panel-heading">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('minutes') }}">議事録</a></li>
+              <li class="breadcrumb-item active" aria-current="page">議事録を見る</li>
+            </ol>
+          </nav>
+        </div>
 
         <div class="panel-body">
           <form class="form-horizontal" method="POST" action="{{ route('minutes.store') }}">
@@ -67,8 +74,7 @@
           <!-- 内容 -->
           <div class="form-group{{ $errors->has('contents') ? ' has-error' : '' }}">
             <label for="contents" class="col-md-2 control-label">内容</label>
-            <div class="col-md-8">
-              {!! nl2br($minute->contents) !!}
+            <div class="col-md-8 contents">
             </div>
           </div>
 
@@ -85,3 +91,15 @@
   </div>
 </div>
 @endsection
+
+@push('script')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.0/markdown-it.min.js" integrity="sha256-6YhPRj11jVWKrz5aBXa9FqGrmmCoZwNiCtIe1lhgm+M=" crossorigin="anonymous"></script>
+<script>
+$(function(){
+	var md = window.markdownit();
+	$(".contents")
+		.empty()
+		.append(md.render("{{ $minute->contents }}"));
+});
+</script>
+@endpush

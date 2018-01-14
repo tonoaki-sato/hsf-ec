@@ -7,7 +7,14 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
 
-        <div class="panel-heading">議事録を作る</div>
+        <div class="panel-heading">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('minutes') }}">議事録</a></li>
+              <li class="breadcrumb-item active" aria-current="page">議事録を作る</li>
+            </ol>
+          </nav>
+        </div>
 
         <div class="panel-body">
           <form class="form-horizontal" method="POST" action="{{ route('minutes.store') }}">

@@ -93,6 +93,13 @@ class MinutesController extends Controller
             ->join('users as users_chairman', 'minutes.chairman', '=', 'users_chairman.id')
             ->join('users as users_secretary', 'minutes.secretary', '=', 'users_secretary.id')
             ->where('minutes.id', $id)->first();
+
+        // マークダウン表示用：View系の処理に書く
+        $contents = $minute->contents;
+        $contents = preg_replace("|\r\n|", "\\n", $contents);
+        $contents = preg_replace("|\r|", "\\n", $contents);
+        $minute->contents = $contents;
+
         // ログインユーザー取得
         $user = Auth::user();
         //
