@@ -19,7 +19,6 @@
               <div>{{ $element->title }}</div>
               <nav class="nav">
                 <a class="nav-link" href="{{ route('minutes.show', ['id' => $element->id]) }}">読む</a>
-                <a class="nav-link" href="{{ route('minutes.destroy', ['id' => $element->id]) }}">削除する</a>
               </nav>
             </li>
             @endforeach

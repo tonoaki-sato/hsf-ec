@@ -148,17 +148,4 @@ class MinutesController extends Controller
         // リダイレクト
         return redirect('/minutes/show/' . $id);
     }
-
-    /**
-     * Delete the minutes data.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy()
-    {
-        // ログインユーザー取得
-        $user = Auth::user();
-        //
-        return view('minutes.edit', compact('user'));
-    }
 }

@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/parts.css') }}" rel="stylesheet">
+    @stack('style');
 
 </head>
 <body>
@@ -80,5 +81,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('script');
 </body>
 </html>

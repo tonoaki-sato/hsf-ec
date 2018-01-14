@@ -75,7 +75,6 @@
           <div class="form-group">
             <div class="col-md-8 col-md-offset-2">
               <a class="btn btn-primary" href="{{ route('minutes.edit', ['id' => $minute->id]) }}" role="button">編集する</a>
-              <a class="btn btn-primary" href="{{ route('minutes.destroy', ['id' => $minute->id]) }}" role="button">削除する</a>
             </div>
           </div>
           </form>

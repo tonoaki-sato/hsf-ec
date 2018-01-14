@@ -36,4 +36,3 @@ Route::get('/minutes/show/{id}', 'MinutesController@show')->name('minutes.show')
 Route::get('/minutes/edit/{id}', 'MinutesController@edit')->name('minutes.edit');
 Route::post('/minutes/update', 'MinutesController@update')->name('minutes.update');
 
-Route::get('/minutes/destroy/{id}', 'MinutesController@destroy')->name('minutes.destroy');
