@@ -81,12 +81,22 @@ class MinutesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
+        // モデル
+        $model = new Minute;
+        // リクエストパラメータ取得
+        $id = $request->id;
+        // レコード取得
+        $minute = $model
+            ->select('minutes.id', 'title', 'start_at', 'attendees', 'place', 'chairman', 'users_chairman.name as chairman_name', 'secretary', 'users_secretary.name as secretary_name', 'contents')
+            ->join('users as users_chairman', 'minutes.chairman', '=', 'users_chairman.id')
+            ->join('users as users_secretary', 'minutes.secretary', '=', 'users_secretary.id')
+            ->where('minutes.id', $id)->first();
         // ログインユーザー取得
         $user = Auth::user();
         //
-        return view('minutes.show', compact('user'));
+        return view('minutes.show', compact('user', 'minute'));
     }
 
     /**
