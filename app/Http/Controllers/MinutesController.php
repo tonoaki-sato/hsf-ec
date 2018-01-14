@@ -104,12 +104,49 @@ class MinutesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request)
     {
+        // モデル
+        $model = new Minute;
+        // リクエストパラメータ取得
+        $id = $request->id;
+        // プリセットレコード取得
+        $minute = $model->where('id', $id)->first();
+        
+        // モデル
+        $model = new User;
+        // ユーザーリスト取得
+        $users = $model->all();
         // ログインユーザー取得
         $user = Auth::user();
         //
-        return view('minutes.edit', compact('user'));
+        return view('minutes.edit', compact('user', 'users', 'minute'));
+    }
+    /**
+     * Exec the minutes update.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        // モデル
+        $model = new Minute;
+        // リクエストパラメータ取得
+        $id = $request->id;
+        // データセット
+        $params = [
+            'title' => $request->title,
+            'start_at' => $request->start_at,
+            'attendees' => $request->attendees,
+            'place' => $request->place,
+            'chairman' => $request->chairman,
+            'secretary' => $request->secretary,
+            'contents' => $request->contents
+        ];
+        // 更新
+        $model->where('id', $id)->update($params);
+        // リダイレクト
+        return redirect('/minutes/show/' . $id);
     }
 
     /**

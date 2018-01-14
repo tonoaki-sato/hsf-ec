@@ -68,7 +68,7 @@
           <div class="form-group{{ $errors->has('contents') ? ' has-error' : '' }}">
             <label for="contents" class="col-md-2 control-label">内容</label>
             <div class="col-md-8">
-              {{ nl2br($minute->contents) }}
+              {!! nl2br($minute->contents) !!}
             </div>
           </div>
 
