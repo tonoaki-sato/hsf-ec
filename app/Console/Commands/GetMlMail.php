@@ -38,6 +38,7 @@ class GetMlMail extends Command
     public function handle()
     {
         //
-        logger("test-hogehoge\n");
+        $contents = file_get_contents('php://input');
+        logger($contents);
     }
 }
