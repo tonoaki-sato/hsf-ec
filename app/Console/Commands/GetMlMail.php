@@ -38,6 +38,6 @@ class GetMlMail extends Command
     public function handle()
     {
         //
-        echo "test-hogehoge\n";
+        logger("test-hogehoge\n");
     }
 }
