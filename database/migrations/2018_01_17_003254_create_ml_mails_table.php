@@ -19,7 +19,7 @@ class CreateMlMailsTable extends Migration
             $table->dateTime('h_date');
             $table->string('h_from');
             $table->string('h_subject');
-            $table->text('header');
+            $table->text('row_data');
             $table->text('contents');
             $table->timestamps();
         });
