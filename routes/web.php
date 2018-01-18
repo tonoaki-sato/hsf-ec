@@ -36,3 +36,6 @@ Route::get('/minutes/show/{id}', 'MinutesController@show')->name('minutes.show')
 Route::get('/minutes/edit/{id}', 'MinutesController@edit')->name('minutes.edit');
 Route::post('/minutes/update', 'MinutesController@update')->name('minutes.update');
 
+// メーリングリスト
+Route::get('/ml_mails', 'MlMailsController@index')->name('ml_mails');
+Route::get('/ml_mails/show/{id}', 'MlMailsController@show')->name('ml_mails.show');
