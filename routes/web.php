@@ -39,3 +39,4 @@ Route::post('/minutes/update', 'MinutesController@update')->name('minutes.update
 // メーリングリスト
 Route::get('/ml_mails', 'MlMailsController@index')->name('ml_mails');
 Route::get('/ml_mails/show/{id}', 'MlMailsController@show')->name('ml_mails.show');
+Route::get('/ml_mails/download/{id}', 'MlMailsController@download')->name('ml_mails.download');

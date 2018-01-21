@@ -43,6 +43,18 @@
             </div>
           </div>
 
+          @if (empty($attachments) === false)
+          <!-- 添付ファイル -->
+          <div class="form-group">
+            <label for="attachments" class="col-md-2 control-label">添付ファイル</label>
+            <div class="col-md-8">
+              @foreach ($attachments as $element)
+                  <div><a href="{{ route('ml_mails.download', ['id' => $element->id]) }}">{{ $element->outer_name }}</a></div>
+              @endforeach
+            </div>
+          </div>
+          @endif
+
           <!-- 内容 -->
           <div class="form-group{{ $errors->has('contents') ? ' has-error' : '' }}">
             <label for="contents" class="col-md-2 control-label">内容</label>
