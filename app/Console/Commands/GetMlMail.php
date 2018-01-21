@@ -90,7 +90,6 @@ class GetMlMail extends Command
         $ml_mail_id = $model->id;
         // 複数の添付ファイルの情報を登録する
         foreach ($structure->parts as $i => $part) {
-echo $i . "\n";
             //
             $ctype = strtolower($part->ctype_primary);
             // メール本文は飛ばす
