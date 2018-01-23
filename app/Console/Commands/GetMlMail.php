@@ -65,11 +65,14 @@ class GetMlMail extends Command
         $model->h_date = date("Y-m-d H:i:s", strtotime($structure->headers["date"]));
         $model->h_from = mb_decode_mimeheader($structure->headers["from"]);
         $model->h_subject = mb_decode_mimeheader($structure->headers["subject"]);
-        // 本文、添付ファイルを抽出
+        // コンテンツタイプ取得
         $ctype = strtolower($structure->ctype_primary);
         // 添付なしのメールの場合
         if ($ctype === 'text') {
+            // 本文データセット
             $model->contents = $structure->body;
+            // 登録
+            $model->save();
         }
         // 添付ありのメールの場合
         else {
@@ -83,40 +86,41 @@ class GetMlMail extends Command
                     break;
                 }
             }
-        }
-        // 登録
-        $model->save();
-        // ID取得
-        $ml_mail_id = $model->id;
-        // 複数の添付ファイルの情報を登録する
-        foreach ($structure->parts as $i => $part) {
-            //
-            $ctype = strtolower($part->ctype_primary);
-            // メール本文は飛ばす
-            if ($ctype === 'text') {
-                continue;
-            }
-            // 添付ファイル（pdf, MS-excel, MS-word, 画像など）
-            $outer_name = $part->ctype_parameters['name'];
-            $outer_name = mb_decode_mimeheader($outer_name);
-            $inner_name = date("YmdHis") . '_' . str_random(40);
-            $body = $part->body;
-            $body = base64_decode($body);
-            //
-            $string = $part->headers['content-type'];
-            $length = strpos($string, ';');
-            $content_type = substr($string, 0, $length);
-            //
-            $model = new MlMailAttachment;
-            $model->ml_mail_id = $ml_mail_id;
-            $model->inner_name = $inner_name;
-            $model->outer_name = $outer_name;
-            $model->content_type = $content_type;
+            // 登録
             $model->save();
-            // ファイルを書き込む
-            $fh = fopen(storage_path('app/public/' . $inner_name), 'w');
-            fwrite($fh, $body);
-            fclose($fh);
+            // ID取得
+            $ml_mail_id = $model->id;
+            // 複数の添付ファイルの情報を登録する
+            foreach ($structure->parts as $i => $part) {
+                //
+                $ctype = strtolower($part->ctype_primary);
+                // メール本文は飛ばす
+                if ($ctype === 'text') {
+                    continue;
+                }
+                // 添付ファイル（pdf, MS-excel, MS-word, 画像など）
+                $outer_name = $part->ctype_parameters['name'];
+                $outer_name = mb_decode_mimeheader($outer_name);
+                $inner_name = date("YmdHis") . '_' . str_random(40);
+                $body = $part->body;
+                $body = base64_decode($body);
+                //
+                $string = $part->headers['content-type'];
+                $length = strpos($string, ';');
+                $content_type = substr($string, 0, $length);
+                // データセット
+                $model = new MlMailAttachment;
+                $model->ml_mail_id = $ml_mail_id;
+                $model->inner_name = $inner_name;
+                $model->outer_name = $outer_name;
+                $model->content_type = $content_type;
+                // 登録
+                $model->save();
+                // ファイルを書き込む
+                $fh = fopen(storage_path('app/public/' . $inner_name), 'w');
+                fwrite($fh, $body);
+                fclose($fh);
+            }
         }
     }
     /**
