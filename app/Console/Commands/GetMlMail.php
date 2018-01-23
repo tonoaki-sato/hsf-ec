@@ -64,7 +64,6 @@ class GetMlMail extends Command
         $model->h_date = date("Y-m-d H:i:s", strtotime($structure->headers["date"]));
         $model->h_from = mb_decode_mimeheader($structure->headers["from"]);
         $model->h_subject = mb_decode_mimeheader($structure->headers["subject"]);
-        $model->row_data = '';
         // 本文、添付ファイルを抽出
         $ctype = strtolower($structure->ctype_primary);
         // 添付なしのメールの場合
