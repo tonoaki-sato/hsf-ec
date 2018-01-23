@@ -32,8 +32,20 @@ class MlMailsController extends Controller
         $user = Auth::user();
         // モデル
         $model = new MlMail;
-        // データ取得
-        $mails = $model->orderBy('id', 'DESC')->get();
+        // 管理ユーザーの場合
+        if ($user->role === \Config::get('const.role_of_secretary')) {
+            // データ取得
+            $mails = $model->orderBy('id', 'DESC')->get();
+        }
+        // その他のユーザーの場合
+        else {
+            // 閲覧禁止メーリングリストを設定
+            $not_in_ml = \Config::get('const.ml_secretary');
+            // データ取得
+            $mails = $model->whereNotIn('ml_mails.ml_name', $not_in_ml)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
         // 
         return view('ml_mails.index', compact('user', 'mails'));
     }
@@ -45,22 +57,40 @@ class MlMailsController extends Controller
      */
     public function show(Request $request)
     {
+        // ログインユーザー取得
+        $user = Auth::user();
+
         // モデル
         $model = new MlMail;
         // リクエストパラメータ取得
         $id = $request->id;
         // レコード取得
         $item = $model->where('ml_mails.id', $id)->first();
-        
-        // 添付ファイル取得
+
+        /*
+         * 添付ファイル取得
+         */
         // モデル
         $model = new MlMailAttachment;
         // レコード取得
         $attachments = $model->where('ml_mail_attachments.ml_mail_id', $id)->get();
-        // ログインユーザー取得
-        $user = Auth::user();
-        //
-        return view('ml_mails.show', compact('user', 'item', 'attachments'));
+
+        /*
+         * 閲覧許可の確認
+         */
+        // 閲覧禁止メーリングリストを設定
+        $not_in_ml = \Config::get('const.ml_secretary');
+
+        // 管理ユーザーの場合
+        if ($user->role === \Config::get('const.role_of_secretary')) {
+            return view('ml_mails.show', compact('user', 'item', 'attachments'));
+        }
+        // その他のユーザーで対象メールのメーリングリスト名が閲覧禁止リストにない場合
+        elseif (in_array($item->ml_name, $not_in_ml) === false) {
+            return view('ml_mails.show', compact('user', 'item', 'attachments'));
+        }
+        // 不正な閲覧
+        throw new Exception('error');
     }
 
     /**
