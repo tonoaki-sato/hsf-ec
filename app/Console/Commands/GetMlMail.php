@@ -60,6 +60,7 @@ class GetMlMail extends Command
         // モデル
         $model = new MlMail;
         // データセット
+        $model->ml_name = $this->_get_ml_name($structure->headers["subject"]);
         $model->h_message_id = $structure->headers["message-id"];
         $model->h_date = date("Y-m-d H:i:s", strtotime($structure->headers["date"]));
         $model->h_from = mb_decode_mimeheader($structure->headers["from"]);
@@ -117,5 +118,21 @@ class GetMlMail extends Command
             fwrite($fh, $body);
             fclose($fh);
         }
+    }
+    /**
+     * Make the mailing-list name.
+     *
+     * @return string
+     */
+    private function _get_ml_name($subject)
+    {
+        //
+        $res = 'unknown';
+        //
+        if (preg_match("!^\[(.+):[0-9]+\]!", $subject, $mch) === 1) {
+            $res = $mch[1];
+        }
+        //
+        return $res;
     }
 }
