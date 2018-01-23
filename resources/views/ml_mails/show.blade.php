@@ -18,7 +18,15 @@
 
         <div class="panel-body">
           <div class="form-horizontal">
-          
+
+          <!-- メーリングリスト名 -->
+          <div class="form-group{{ $errors->has('ml_name') ? ' has-error' : '' }}">
+            <label for="ml_name" class="col-md-2 control-label">リスト名</label>
+            <div class="col-md-8">
+              {{ $item->ml_name }}
+            </div>
+          </div>
+
           <!-- タイトル -->
           <div class="form-group{{ $errors->has('h_subject') ? ' has-error' : '' }}">
             <label for="h_subject" class="col-md-2 control-label">件名</label>
@@ -43,7 +51,7 @@
             </div>
           </div>
 
-          @if (empty($attachments) === false)
+          @if ($attachments->count() >= 1)
           <!-- 添付ファイル -->
           <div class="form-group">
             <label for="attachments" class="col-md-2 control-label">添付ファイル</label>
