@@ -24,7 +24,7 @@ class MlNewMail extends Mailable
      *
      * @return void
      */
-    public function __construct(Request $data)
+    public function __construct(Array $data)
     {
         //
         $this->_data = $data;
@@ -38,9 +38,10 @@ class MlNewMail extends Mailable
     public function build()
     {
         return $this->text('emails.ml_new_mail_plain')
-                    ->subject($this->_data->subject)
+                    ->from(env('MAIL_FROM_ADDRESS'), $this->_data['name'])
+                    ->subject($this->_data['subject'])
                     ->with([
-                        'contents' => $this->_data->contents
+                        'contents' => $this->_data['contents']
                     ]);
     }
 }

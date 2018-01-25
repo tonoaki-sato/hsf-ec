@@ -148,8 +148,16 @@ class MlMailsController extends Controller
      */
     public function send(Request $request)
     {
+        // ログインユーザー取得
+        $user = Auth::user();
+        //
+        $data = [
+            'name' => $user->name,
+            'subject' => $request->subject,
+            'contents' => $request->contents
+        ];
         // メール送信
-        Mail::to($request->to)->send(new MlNewMail($request));
+        Mail::to($request->to)->send(new MlNewMail($data));
         // リダイレクト
         return redirect('ml_mails');
     }
