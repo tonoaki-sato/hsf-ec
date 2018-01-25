@@ -49,7 +49,7 @@ class MlNewMail extends Mailable
                     ->from(env('MAIL_FROM_ADDRESS'), $this->_data['name'])
                     ->subject($this->_data['subject'])
                     ->with([
-                        'contents' => $this->_data['contents']
+                        'contents' => mb_convert_encoding($this->_data['contents'],"ASCII", "UTF-8");
                     ]);
     }
 }
