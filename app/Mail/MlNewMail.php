@@ -39,7 +39,7 @@ class MlNewMail extends Mailable
     {
         //
         $this->text('emails.ml_new_mail_plain')
-            ->from($this->_data['from'], $this->_data['name'])
+            ->from(env('MAIL_FROM_ADDRESS'), $this->_data['name'])
             ->subject($this->_data['subject'])
             ->with([
                 'contents' => $this->_data['contents']

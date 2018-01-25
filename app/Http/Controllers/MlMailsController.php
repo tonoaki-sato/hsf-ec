@@ -153,7 +153,6 @@ class MlMailsController extends Controller
         $user = Auth::user();
         //
         $data = [
-            'from' => $request->to,
             'name' => $user->name,
             'subject' => $request->subject,
             'contents' => $request->contents,
