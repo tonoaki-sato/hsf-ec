@@ -8,6 +8,7 @@ use App\MlMailAttachment;
 use App\Mail\MlNewMail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -154,8 +155,21 @@ class MlMailsController extends Controller
         $data = [
             'name' => $user->name,
             'subject' => $request->subject,
-            'contents' => $request->contents
+            'contents' => $request->contents,
+            'attachment' => []
         ];
+        // 添付ファイルの処理
+        if ($request->hasFile('attachments') === true) {
+            foreach ($request->attachments as $i => $element) {
+                $data['attachment'][] = [
+                    'originalName' => $element->getClientOriginalName(),
+                    'mimeType' => $element->getMimeType(),
+                    'size' => $element->getClientSize(),
+                    'realPath' => $element->getRealPath(),
+                    'fileName' => $element->getFilename()
+                ];
+            }
+        }
         // メール送信
         Mail::to($request->to)->send(new MlNewMail($data));
         // リダイレクト

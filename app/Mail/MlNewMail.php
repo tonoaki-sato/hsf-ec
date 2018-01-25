@@ -37,6 +37,14 @@ class MlNewMail extends Mailable
      */
     public function build()
     {
+        // ファイル添付
+        foreach ($this->_data['attachment'] as $element) {
+            $this->attach($element['realPath'], [
+                'as' => mb_encode_mimeheader($element['originalName']),
+                'mime' => $element['mimeType']
+            ]);
+        }
+        
         return $this->text('emails.ml_new_mail_plain')
                     ->from(env('MAIL_FROM_ADDRESS'), $this->_data['name'])
                     ->subject($this->_data['subject'])

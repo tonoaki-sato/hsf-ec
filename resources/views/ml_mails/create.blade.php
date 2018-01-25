@@ -17,7 +17,7 @@
         </div>
 
         <div class="panel-body">
-          <form class="form-horizontal" method="POST" action="{{ route('ml_mails.send') }}">
+          <form class="form-horizontal" method="POST" action="{{ route('ml_mails.send') }}" enctype="multipart/form-data">
           {{ csrf_field() }}
           
           <!-- 宛先 -->
@@ -45,6 +45,19 @@
               @if ($errors->has('subject'))
                 <span class="help-block">
                   <strong>{{ $errors->first('subject') }}</strong>
+                </span>
+              @endif
+            </div>
+          </div>
+
+          <!-- 添付ファイル -->
+          <div class="form-group{{ $errors->has('attachments') ? ' has-error' : '' }}">
+            <label for="attachments" class="col-md-2 control-label">添付</label>
+            <div class="col-md-8">
+              <input id="attachments" type="file" class="form-control-file" name="attachments[]" multiple>
+              @if ($errors->has('attachments'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('attachments') }}</strong>
                 </span>
               @endif
             </div>

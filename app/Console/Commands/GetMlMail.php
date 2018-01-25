@@ -78,10 +78,8 @@ class GetMlMail extends Command
         else {
             // 複数の添付ファイルを想定
             foreach ($structure->parts as $i => $part) {
-                //
-                $ctype = strtolower($part->ctype_primary);
                 // メール本文
-                if ($ctype === 'text') {
+                if (isset($part->ctype_parameters['charset']) === true) {
                     $model->contents = $part->body;
                     break;
                 }
@@ -92,10 +90,8 @@ class GetMlMail extends Command
             $ml_mail_id = $model->id;
             // 複数の添付ファイルの情報を登録する
             foreach ($structure->parts as $i => $part) {
-                //
-                $ctype = strtolower($part->ctype_primary);
                 // メール本文は飛ばす
-                if ($ctype === 'text') {
+                if (isset($part->ctype_parameters['name']) === false) {
                     continue;
                 }
                 // 添付ファイル（pdf, MS-excel, MS-word, 画像など）
