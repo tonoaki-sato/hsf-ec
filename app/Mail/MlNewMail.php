@@ -37,6 +37,13 @@ class MlNewMail extends Mailable
      */
     public function build()
     {
+        //
+        $this->text('emails.ml_new_mail_plain')
+            ->from($this->_data['from'], $this->_data['name'])
+            ->subject($this->_data['subject'])
+            ->with([
+                'contents' => $this->_data['contents']
+            ]);
         // ファイル添付
         foreach ($this->_data['attachment'] as $element) {
             $this->attach($element['realPath'], [
@@ -44,12 +51,7 @@ class MlNewMail extends Mailable
                 'mime' => $element['mimeType']
             ]);
         }
-        
-        return $this->text('emails.ml_new_mail_plain')
-                    ->from(env('MAIL_FROM_ADDRESS'), $this->_data['name'])
-                    ->subject($this->_data['subject'])
-                    ->with([
-                        'contents' => mb_convert_encoding($this->_data['contents'],"ASCII", "UTF-8");
-                    ]);
+        // 返却
+        return;
     }
 }
