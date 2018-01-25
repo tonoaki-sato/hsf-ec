@@ -7,7 +7,14 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
 
-        <div class="panel-heading">メーリングリスト</div>
+        <div class="panel-heading">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">メーリングリスト</li>
+              <li class="breadcrumb-item"><a href="{{ route('ml_mails.create') }}">メールを書く</a></li>
+            </ol>
+          </nav>
+        </div>
 
         <div class="panel-body">
           <ul class="list-group">

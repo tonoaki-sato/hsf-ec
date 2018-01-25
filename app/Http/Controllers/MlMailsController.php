@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\User;
 use App\MlMail;
 use App\MlMailAttachment;
+use App\Mail\MlNewMail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MlMailsController extends Controller
 {
@@ -117,4 +119,39 @@ class MlMailsController extends Controller
         //
         return response()->download($path, $outer_name, $headers);
     }
+
+    /**
+     * Create the ml-mail replay form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        // ログインユーザー取得
+        $user = Auth::user();
+        
+        // メーリングリストの一覧取得
+        $ml = null;
+        if ($user->role === \Config::get('const.role_of_secretary')) {
+            $ml = \Config::get('const.ml_secretary');
+        } else {
+            $ml = \Config::get('const.ml_general');
+        }
+        //
+        return view('ml_mails.create', compact('user', 'ml'));
+    }
+
+    /**
+     * Send to the ml-mail.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Request $request)
+    {
+        // メール送信
+        Mail::to($request->to)->send(new MlNewMail($request));
+        // リダイレクト
+        return redirect('ml_mails');
+    }
+
 }

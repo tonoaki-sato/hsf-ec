@@ -40,3 +40,5 @@ Route::post('/minutes/update', 'MinutesController@update')->name('minutes.update
 Route::get('/ml_mails', 'MlMailsController@index')->name('ml_mails');
 Route::get('/ml_mails/show/{id}', 'MlMailsController@show')->name('ml_mails.show');
 Route::get('/ml_mails/download/{id}', 'MlMailsController@download')->name('ml_mails.download');
+Route::get('/ml_mails/create', 'MlMailsController@create')->name('ml_mails.create');
+Route::post('/ml_mails/send', 'MlMailsController@send')->name('ml_mails.send');
