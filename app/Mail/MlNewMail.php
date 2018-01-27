@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Swift_Mime_ContentEncoder_PlainContentEncoder;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -41,6 +42,10 @@ class MlNewMail extends Mailable
         $this->text('emails.ml_new_mail_plain')
             ->from(env('MAIL_FROM_ADDRESS'), $this->_data['name'])
             ->subject($this->_data['subject'])
+            ->withSwiftMessage(function ($message) {
+                $message->setCharset('iso-2022-jp')
+                        ->setEncoder(new Swift_Mime_ContentEncoder_PlainContentEncoder('7bit'));
+            })
             ->with([
                 'contents' => $this->_data['contents']
             ]);
