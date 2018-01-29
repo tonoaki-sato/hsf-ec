@@ -4,7 +4,6 @@ var network = null;
 
 // randomly create some nodes and edges
 var data = getScaleFreeNetwork(25);
-var seed = 2;
 
 function destroy() {
   if (network !== null) {
@@ -21,9 +20,22 @@ function draw() {
   // create a network
   var container = document.getElementById('mynetwork');
   var options = {
-      layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
+      nodes: {
+        font: {
+          size: 30,
+          strokeWidth: null
+        },
+        shape: "box"
+      },
       edges: {
-        "smooth": false
+        smooth: false
+      },
+      layout: {
+        hierarchical: {
+          enabled: true,
+          parentCentralization: false,
+          direction: "LR"
+        }
       },
       physics: {
         "enabled": false,
