@@ -22,9 +22,12 @@
                       <a href="{{ route('ml_mails') }}">メーリングリスト
                       </a>
                     </div>
+                    <div>
+                      <a href="{{ route('orgcharts') }}">組織図
+                      </a>
+                    </div>
                     <br />
                     ・スケジュール（一覧、見る、作る）<br />
-                    ・組織図（見る、作る）
                 </div>
                 <div>
                   <a class="twitter-timeline" width="320px" height="400px" data-border-color="#000000" data-chrome="noheader nofooter" href="https://twitter.com/shukubakun?ref_src=twsrc%5Etfw">Tweets by shukubakun</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
