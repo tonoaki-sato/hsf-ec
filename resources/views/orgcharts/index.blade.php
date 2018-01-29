@@ -29,42 +29,28 @@
             </ol>
           </nav>
         </div>
-        
-          
-          <p>
-            <label for="locale">Select a locale:</label>
-            <select id="locale" onchange="draw();">
-              <option value="en">en</option>
-              <option value="de">de</option>
-              <option value="es">es</option>
-              <option value="it">it</option>
-              <option value="nl">nl</option>
-              <option value="pt-br">pt</option>
-              <option value="ru">ru</option>
-            </select>
-          </p>
 
-          <div id="network-popUp">
-            <span id="operation">node</span> <br>
-            <table style="margin:auto;">
-              <tr>
-                <td>id</td>
-                <td><input id="node-id" value="new value" /></td>
-              </tr>
-              <tr>
-                <td>label</td><td><input id="node-label" value="new value" /></td>
-              </tr>
-            </table>
-            <input type="button" value="save" id="saveButton" />
-            <input type="button" value="cancel" id="cancelButton" />
-          </div>
-          <br />
         <div class="panel-body">
           <div id="mynetwork"></div>
         </div>
 
       </div>
     </div>
+  </div>
+
+  <div id="network-popUp">
+    <span id="operation">node</span> <br>
+    <table style="margin:auto;">
+      <tr>
+        <td>id</td>
+        <td><input id="node-id" value="new value" /></td>
+      </tr>
+      <tr>
+        <td>label</td><td><input id="node-label" value="new value" /></td>
+      </tr>
+    </table>
+    <input type="button" value="save" id="saveButton" />
+    <input type="button" value="cancel" id="cancelButton" />
   </div>
 
 </div>

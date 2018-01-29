@@ -1,21 +1,10 @@
 var nodes = null;
 var edges = null;
 var network = null;
+
 // randomly create some nodes and edges
 var data = getScaleFreeNetwork(25);
 var seed = 2;
-
-function setDefaultLocale() {
-  var defaultLocal = navigator.language;
-  var select = document.getElementById('locale');
-  select.selectedIndex = 0; // set fallback value
-  for (var i = 0, j = select.options.length; i < j; ++i) {
-    if (select.options[i].getAttribute('value') === defaultLocal) {
-      select.selectedIndex = i;
-      break;
-    }
-  }
-}
 
 function destroy() {
   if (network !== null) {
@@ -32,9 +21,15 @@ function draw() {
   // create a network
   var container = document.getElementById('mynetwork');
   var options = {
-    layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
-    locale: document.getElementById('locale').value,
-    manipulation: {
+      layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
+      edges: {
+        "smooth": false
+      },
+      physics: {
+        "enabled": false,
+        "minVelocity": 0.75
+      },
+      manipulation: {
       addNode: function (data, callback) {
         // filling in the popup DOM elements
         document.getElementById('operation').innerHTML = "Add Node";
@@ -88,6 +83,5 @@ function saveData(data,callback) {
 }
 
 function init() {
-  setDefaultLocale();
   draw();
 }
