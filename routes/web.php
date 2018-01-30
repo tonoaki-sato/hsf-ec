@@ -44,4 +44,4 @@ Route::get('/ml_mails/create', 'MlMailsController@create')->name('ml_mails.creat
 Route::post('/ml_mails/send', 'MlMailsController@send')->name('ml_mails.send');
 
 // 
-Route::view('/orgcharts', 'orgcharts.index')->name('orgcharts');
+Route::get('/orgcharts', 'OrgchartController@index')->name('orgcharts');

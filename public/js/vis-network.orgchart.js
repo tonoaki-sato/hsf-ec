@@ -1,10 +1,9 @@
 var nodes = null;
 var edges = null;
 var network = null;
+var data = {};
 
-// randomly create some nodes and edges
-var data = getScaleFreeNetwork(25);
-
+//
 function destroy() {
   if (network !== null) {
     network.destroy();
@@ -21,9 +20,12 @@ function draw() {
   var container = document.getElementById('mynetwork');
   var options = {
       nodes: {
+        fixed: {
+          x: true,
+          y: true
+        },
         font: {
           size: 30,
-          strokeWidth: null
         },
         shape: "box"
       },
@@ -94,6 +96,7 @@ function saveData(data,callback) {
   callback(data);
 }
 
-function init() {
+function init(json) {
+  data = json;
   draw();
 }

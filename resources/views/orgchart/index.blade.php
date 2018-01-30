@@ -11,7 +11,17 @@
   <script src="{{ asset('js/vis-network.orgchart.js') }}"></script>
   <script type="text/javascript">
     $(function(){
-        init();
+        //
+        $.ajax({
+            url: '/api/orgcharts/get',
+            type: 'get',
+        })
+        .done(function(data){
+            init(data);
+        })
+        .fail(function(data){
+            console.log('error');
+        });
     });
   </script>
 @endpush
