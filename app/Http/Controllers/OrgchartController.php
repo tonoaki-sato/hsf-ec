@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\OrgchartNode;
+use App\OrgchartEdge;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -25,30 +27,93 @@ class OrgchartController extends Controller
      */
     public function get()
     {
-        // create an array with nodes
-        $nodes = [
-            ['id' => 1, 'label' => 'Node 1', 'x' => 0, 'y' => 0],
-            ['id' => 2, 'label' => 'Node 2'],
-            ['id' => 3, 'label' => 'Node 3'],
-            ['id' => 4, 'label' => 'Node 4'],
-            ['id' => 5, 'label' => 'Node 5']
-        ];
-        
-        // create an array with edges
-        $edges = [
-            ['from' => 1, 'to' => 3],
-            ['from' => 1, 'to' => 2],
-            ['from' => 2, 'to' => 4],
-            ['from' => 2, 'to' => 5],
-            ['from' => 3, 'to' => 3]
-        ];
-        
+        // モデル
+        $model_node = new OrgchartNode;
+        // データ取得
+        $nodes = $model_node
+                ->select(['id', 'label', 'x', 'y'])
+                ->get()
+                ->toArray();
+        // モデル
+        $model_edge = new OrgchartEdge;
+        // データ取得
+        $edges = $model_edge
+                ->select(['id', 'from', 'to'])
+                ->get()
+                ->toArray();
         //
         $data = [
             'nodes' => $nodes, 'edges' => $edges
         ];
         //
         return response()->json($data);
+    }
+
+    /**
+     * Push the node data to data-store.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function add_node(Request $request)
+    {
+        // モデル
+        $model = new OrgchartNode;
+        // データセット
+        $model->label = $request->label;
+        $model->x = $request->x;
+        $model->y = $request->y;
+        // 登録
+        $model->save();
+        //
+        return response()->json(['result' => 'success']);
+    }
+
+    /**
+     * Push the edge data to data-store.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function add_edge(Request $request)
+    {
+        // モデル
+        $model = new OrgchartEdge;
+        // データセット
+        $model->from = $request->from;
+        $model->to = $request->to;
+        // 登録
+        $model->save();
+        //
+        return response()->json(['result' => 'success']);
+    }
+
+    /**
+     * Delete the node data from data-store.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_node(Request $request)
+    {
+        // モデル
+        $model = new OrgchartNode;
+        // 削除
+        $model->destroy($request->id);
+        //
+        return response()->json(['result' => 'success']);
+    }
+
+    /**
+     * Delete the edge data from data-store.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_edge(Request $request)
+    {
+        // モデル
+        $model = new OrgchartEdge;
+        // 削除
+        $model->destroy($request->id);
+        //
+        return response()->json(['result' => 'success']);
     }
 
     /**

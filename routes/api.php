@@ -17,3 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/orgcharts/get', 'OrgchartController@get')->name('orgcharts.get');
+Route::post('/orgcharts/add_node', 'OrgchartController@add_node')->name('orgcharts.add_node');
+Route::post('/orgcharts/add_edge', 'OrgchartController@add_edge')->name('orgcharts.add_edge');
+Route::post('/orgcharts/delete_node', 'OrgchartController@delete_node')->name('orgcharts.delete_node');
+Route::post('/orgcharts/delete_edge', 'OrgchartController@delete_edge')->name('orgcharts.delete_edge');

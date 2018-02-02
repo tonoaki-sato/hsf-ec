@@ -4,10 +4,10 @@ body, select {
 .panel-body {
   height: 600px;
 }
-#mynetwork {
+#network {
   position:relative;
   width: 800px;
-  height: 600px;
+  height: 500px;
   border: 1px solid lightgray;
 }
 table.legend_table {

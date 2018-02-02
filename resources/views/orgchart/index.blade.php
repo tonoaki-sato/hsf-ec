@@ -7,7 +7,6 @@
 @push('script')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js" integrity="sha256-JuQeAGbk9rG/EoRMixuy5X8syzICcvB0dj3KindZkY0=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js" integrity="sha256-z4uJf4qxa6fOwudp++XaHza5NiKuOkELRsT6DaF/2n0=" crossorigin="anonymous"></script>
-  <script src="{{ asset('js/vis-network.util.js') }}"></script>
   <script src="{{ asset('js/vis-network.orgchart.js') }}"></script>
   <script type="text/javascript">
     $(function(){
@@ -22,6 +21,7 @@
         .fail(function(data){
             console.log('error');
         });
+        
     });
   </script>
 @endpush
@@ -41,7 +41,7 @@
         </div>
 
         <div class="panel-body">
-          <div id="mynetwork"></div>
+          <div id="network"></div>
         </div>
 
       </div>
@@ -53,7 +53,7 @@
     <table style="margin:auto;">
       <tr>
         <td>id</td>
-        <td><input id="node-id" value="new value" /></td>
+        <td><input id="node-id" value="new value" readonly /></td>
       </tr>
       <tr>
         <td>label</td><td><input id="node-label" value="new value" /></td>
