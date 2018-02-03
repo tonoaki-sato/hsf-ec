@@ -14,10 +14,19 @@ function draw(data) {
 	destroy();
 	//
 	var options = {
+		nodes: {
+			shape: "box",
+			widthConstraint: {
+				minimum: 100,
+				maximum: 100
+			}
+		},
 		layout: {
 			hierarchical: {
 				enabled: true,
-				parentCentralization: false
+				parentCentralization: false,
+				sortMethod: "directed",
+				direction: "LR"
 			}
 		},
 		physics: {
