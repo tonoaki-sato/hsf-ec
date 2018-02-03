@@ -50,22 +50,26 @@ class OrgchartController extends Controller
     }
 
     /**
-     * Push the node data to data-store.
+     * Save the node data to data-store.
      *
      * @return \Illuminate\Http\Response
      */
-    public function add_node(Request $request)
+    public function save_node(Request $request)
     {
-        // モデル
-        $model = new OrgchartNode;
+        // 既存レコードのモデル取得
+        $model = \App\OrgchartNode::where('id', $request->id)->first();
+        // 既存レコードがない場合、空のモデルを生成
+        if (empty($model) === true) {
+            $model = new OrgchartNode();
+        }
         // データセット
         $model->label = $request->label;
         $model->x = $request->x;
         $model->y = $request->y;
-        // 登録
+        // 保存
         $model->save();
         //
-        return response()->json(['result' => 'success']);
+        return response()->json($model);
     }
 
     /**

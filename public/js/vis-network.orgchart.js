@@ -16,7 +16,8 @@ function draw(data) {
 	var options = {
 		layout: {
 			hierarchical: {
-				enabled: true
+				enabled: true,
+				parentCentralization: false
 			}
 		},
 		physics: {
@@ -102,13 +103,14 @@ function cancelEdit(callback) {
 }
 
 function saveNode(data) {
+    var obj = document.getElementById('node-id');
 	$.ajax({
-	    url: '/api/orgcharts/add_node',
+	    url: '/api/orgcharts/save_node',
 	    type: 'post',
 	    data: data
 	})
 	.done(function(data){
-	    console.log('success');
+		location.reload();
 	})
 	.fail(function(data){
 	    console.log('error');
