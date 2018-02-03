@@ -41,7 +41,7 @@
         </div>
 
         <div class="panel-body">
-          <div id="network"></div>
+          <div id="network" data-role="{{ $user->role }}"></div>
         </div>
 
       </div>

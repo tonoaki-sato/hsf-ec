@@ -11,6 +11,13 @@ function init(data) {
 
 function draw(data) {
 	//
+	var role = $("#network").data("role");
+	enable_manipulation = false;
+	if (role === "secretary") {
+		enable_manipulation = true;
+	}
+	
+	//
 	destroy();
 	//
 	var options = {
@@ -33,6 +40,7 @@ function draw(data) {
 			enabled: false
 		},
 		manipulation: {
+			enabled: enable_manipulation,
 			addNode: function (data, callback) {
 				// filling in the popup DOM elements
 				document.getElementById('operation').innerHTML = "Add Node";

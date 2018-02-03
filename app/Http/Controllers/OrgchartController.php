@@ -6,9 +6,19 @@ use App\OrgchartNode;
 use App\OrgchartEdge;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class OrgchartController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +26,10 @@ class OrgchartController extends Controller
      */
     public function index()
     {
-        //
-        return view('orgchart.index');
+        $this->middleware('auth');
+        // ログインユーザー取得
+        $user = Auth::user();
+        return view('orgchart.index', compact('user'));
     }
 
     /**
@@ -27,14 +39,14 @@ class OrgchartController extends Controller
      */
     public function get()
     {
-        // モデル
+        // モデル:ノード
         $model_node = new OrgchartNode;
         // データ取得
         $nodes = $model_node
                 ->select(['id', 'label', 'x', 'y'])
                 ->get()
                 ->toArray();
-        // モデル
+        // モデル:エッジ
         $model_edge = new OrgchartEdge;
         // データ取得
         $edges = $model_edge
