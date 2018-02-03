@@ -39,6 +39,10 @@ function draw(data) {
 		physics: {
 			enabled: false
 		},
+		interaction: {
+			navigationButtons: true,
+			keyboard: true
+		},
 		manipulation: {
 			enabled: enable_manipulation,
 			addNode: function (data, callback) {
