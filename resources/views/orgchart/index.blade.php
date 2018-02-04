@@ -36,6 +36,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page">組織図</li>
+              <li class="breadcrumb-item"><a href="{{ route('organization') }}">組織を登録</a></li>
             </ol>
           </nav>
         </div>

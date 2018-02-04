@@ -45,3 +45,6 @@ Route::post('/ml_mails/send', 'MlMailsController@send')->name('ml_mails.send');
 
 // 
 Route::get('/orgcharts', 'OrgchartController@index')->name('orgcharts');
+Route::get('/organizations/{year?}', 'OrganizationController@index')->name('organization');
+Route::post('/organizations/store', 'OrganizationController@store')->name('organization.store');
+Route::get('/organizations/delete/{id}', 'OrganizationController@destroy')->name('organization.destroy');
