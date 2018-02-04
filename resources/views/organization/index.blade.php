@@ -100,7 +100,8 @@
                   <span>{{ $element->description }}</span>
                 </td>
                 <td class="text-center">
-                  <span><a href="{{ route('organization.destroy', ['id' => $element->id]) }}">削除</a></span>
+                  <span style="margin: 0px 5px;"><a href="{{ route('organization.destroy', ['id' => $element->id]) }}">削除</a></span>
+                  <span style="margin: 0px 5px;"><a href="{{ route('organization.edit', ['id' => $element->id]) }}">編集</a></span>
                 </td>
               </tr>
               @endforeach

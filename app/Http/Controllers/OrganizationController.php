@@ -85,19 +85,30 @@ class OrganizationController extends Controller
      */
     public function edit($id)
     {
-        //
+        // モデル
+        $model = new Organization();
+        // レコード取得
+        $data = $model->find($id);
+        // ビュー
+        return view('organization.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $input = $request->all();
+        //
+        $model = new Organization();
+        //
+        $model->update_collective($input);
+        // 
+        return redirect(route('organization.edit', ['id' => $input['Organization']['id']]));
     }
 
     /**
