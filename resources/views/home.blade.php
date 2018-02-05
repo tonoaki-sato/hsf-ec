@@ -15,6 +15,10 @@
                     @endif
 
                     <div>
+                      <a href="{{ route('user') }}">ユーザー
+                      </a>
+                    </div>
+                    <div>
                       <a href="{{ route('minutes') }}">議事録
                       </a>
                     </div>

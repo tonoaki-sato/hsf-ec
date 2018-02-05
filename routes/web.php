@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // プロフィール
 Route::get('/profile', 'ProfileController@index')->name('profile');
+// ユーザー
+Route::get('/users', 'UserController@index')->name('user');
 
 // 利用登録
 Route::get('/register/{passphrase}', 'Auth\RegisterController@showRegistrationForm');
