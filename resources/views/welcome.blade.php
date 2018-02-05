@@ -94,11 +94,13 @@
                 </div>
 
                 <div class="links">
-                    <a href="http://syukuba.net/" target="_blank">公式ホームページ</a>
-                    <a href="https://www.facebook.com/hodogayasyukubafest/" target="_blank">Facebook</a>
-                    <a href="https://ameblo.jp/komachi-hodogaya/" target="_blank">小町のブログ</a>
-                    <a href="https://www.instagram.com/shukubakun/" target="_blank">宿場くんInstagram</a>
-                    <a href="https://twitter.com/shukubakun" target="_blank">宿場くんTwitter</a>
+                  <ul class="list-inline">
+                    <li><a href="http://syukuba.net/" target="_blank"><strong>公式ホームページ</strong></a></li>
+                    <li><a href="https://www.facebook.com/hodogayasyukubafest/" target="_blank"><strong>Facebook</strong></a></li>
+                    <li><a href="https://ameblo.jp/komachi-hodogaya/" target="_blank"><strong>小町のブログ</strong></a></li>
+                    <li><a href="https://www.instagram.com/shukubakun/" target="_blank"><strong>宿場くんInstagram</strong></a></li>
+                    <li><a href="https://twitter.com/shukubakun" target="_blank"><strong>宿場くんTwitter</strong></a></li>
+                  </ul>
                 </div>
             </div>
         </div>
