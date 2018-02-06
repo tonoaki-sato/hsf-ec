@@ -133,23 +133,34 @@ class OrgchartController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show_node($id)
+    {
+        //
+        $data = [];
+        // モデル
+        $model_node = new OrgchartNode;
+        // データ取得
+        $data['node'] = $model_node->where('id', $id)
+                         ->first()
+                         ->toArray();
+        // データ取得
+        $data['member'] = '';
+        // 返却
+        return response()->json($data);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }

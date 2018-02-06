@@ -21,3 +21,4 @@ Route::post('/orgcharts/save_node', 'OrgchartController@save_node')->name('orgch
 Route::post('/orgcharts/add_edge', 'OrgchartController@add_edge')->name('orgcharts.add_edge');
 Route::post('/orgcharts/delete_node', 'OrgchartController@delete_node')->name('orgcharts.delete_node');
 Route::post('/orgcharts/delete_edge', 'OrgchartController@delete_edge')->name('orgcharts.delete_edge');
+Route::get('/orgcharts/show_node/{id}', 'OrgchartController@show_node')->name('orgcharts.show_node');

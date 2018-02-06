@@ -63,5 +63,34 @@
     <input type="button" value="cancel" id="cancelButton" />
   </div>
 
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title"></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @if ($user->role !== \Config::get('const.role_of_secretary'))
+          <!-- メンバー登録 -->
+          <div class="modal-form">
+            <p>Modal body text goes here.</p>
+          </div>
+          @endif
+          <!-- メンバー表示 -->
+          <div class="modal-member">
+            <p></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 @endsection

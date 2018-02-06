@@ -82,6 +82,27 @@ function draw(data) {
 	};
 	// create a network of nodes
 	network = new vis.Network(container, data, options);
+	
+	//
+	network.on('click', function(properties){
+		if (properties.nodes[0] === undefined) {
+			return true;
+		}
+        //
+        $.ajax({
+            url: '/api/orgcharts/show_node/' + properties.nodes[0],
+            type: 'get',
+        })
+        .done(function(data){
+			console.log(data);
+			$(".modal-title").text("");
+			$(".modal-title").text(data.node.label);
+			$('#myModal').modal('toggle');
+        })
+        .fail(function(data){
+            console.log('error');
+        });
+	});
 }
 
 function objectToArray(obj) {
