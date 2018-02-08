@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\OrgchartNode;
 use App\OrgchartEdge;
+use App\OrgchartMember;
+use App\Member;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +31,7 @@ class OrgchartController extends Controller
         $this->middleware('auth');
         // ログインユーザー取得
         $user = Auth::user();
+        //
         return view('orgchart.index', compact('user'));
     }
 
@@ -40,14 +43,14 @@ class OrgchartController extends Controller
     public function get()
     {
         // モデル:ノード
-        $model_node = new OrgchartNode;
+        $model_node = new OrgchartNode();
         // データ取得
         $nodes = $model_node
                 ->select(['id', 'label', 'x', 'y'])
                 ->get()
                 ->toArray();
         // モデル:エッジ
-        $model_edge = new OrgchartEdge;
+        $model_edge = new OrgchartEdge();
         // データ取得
         $edges = $model_edge
                 ->select(['id', 'from', 'to'])
@@ -143,13 +146,25 @@ class OrgchartController extends Controller
         //
         $data = [];
         // モデル
-        $model_node = new OrgchartNode;
-        // データ取得
+        $model_node = new OrgchartNode();
+        // ノードデータ取得
         $data['node'] = $model_node->where('id', $id)
                          ->first()
                          ->toArray();
-        // データ取得
-        $data['member'] = '';
+        // ノードメンバー取得
+        $model_orgchart_member = new OrgchartMember();
+        $data['member'] = $model_orgchart_member->select('members.id', 'members.name')
+            ->join('members', 'orgchart_members.member_id', '=', 'members.id')
+            ->where('orgchart_members.orgchart_node_id', $id)
+            ->get()
+            ->toArray();
+        // セレクトオプション取得
+        $data['select_option'] = [];
+        $model_member = new Member();
+        $tmp_a = $model_member->select('id', 'name')->get()->toArray();
+        $tmp_a = array_pluck($tmp_a, 'name', 'id');
+        $tmp_b = array_pluck($data['member'], 'name', 'id');
+        $data['select_option'] = array_diff($tmp_a, $tmp_b);
         // 返却
         return response()->json($data);
     }
@@ -160,9 +175,33 @@ class OrgchartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add_member(Request $request)
     {
         //
+        $input = $request->all();
+        //
+        if (empty($input['member']['name']) === false) {
+            // Member 登録
+            $model = new Member();
+            $model->name = $input['member']['name'];
+            $model->description = '';
+            $model->save();
+            // MemberId セット
+            $input['orgchartMember']['member_id'] = $model->id;
+        }
+        // OrgchartMember 登録
+        $model = new OrgchartMember();
+        $model->member_id = $input['orgchartMember']['member_id'];
+        $model->orgchart_node_id = $input['orgchartMember']['orgchart_node_id'];
+        $model->description = '';
+        $model->save();
+        // 登録されたメンバーのレコード取得
+        $model = new Member();
+        $data = $model->where('id', $input['orgchartMember']['member_id'])
+              ->first()
+              ->toArray();
+        // 返却
+        return response()->json($data);
     }
 
     /**

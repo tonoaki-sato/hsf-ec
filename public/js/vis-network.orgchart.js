@@ -94,10 +94,31 @@ function draw(data) {
             type: 'get',
         })
         .done(function(data){
-			console.log(data);
 			$(".modal-title").text("");
 			$(".modal-title").text(data.node.label);
+			$("[name='orgchartMember\[orgchart_node_id\]']").val("");
+			$("[name='orgchartMember\[orgchart_node_id\]']").val(data.node.id);
 			$('#myModal').modal('toggle');
+			
+			// メンバー表示
+			$(".modal-member").empty();
+			$(data.member).each(function(idx, elm){
+    			$(".modal-member").append("\
+                  <li>\
+                    <span>" + elm.name + "</span>\
+                  </li>\
+    			");
+			});
+			// セレクトボックス作成
+			var obj = $(".member-id").find("select");
+			if ($(obj).length > 0) {
+				$(obj).empty().append('<option value=""></option>');
+				$.each(data.select_option, function(id, name){
+					$(obj).append('\
+					  <option value="' + id + '">' + name + '</option>\
+					');
+				});
+			}
         })
         .fail(function(data){
             console.log('error');
