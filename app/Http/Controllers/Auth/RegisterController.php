@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -64,18 +65,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    	$role = \Config::get('const.role_of_general');
-    	if (empty($data['passphrase']) === false) {
-    		if ($data['passphrase'] === \Config::get('const.passphrase_for_secretary')) {
-    			$role = \Config::get('const.role_of_secretary');
-    		}
-    	}
-        return User::create([
-            'name' => $data['name'],
-            'role' => $role,
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $role = \Config::get('const.role_of_general');
+        if (empty($data['passphrase']) === false) {
+            if ($data['passphrase'] === \Config::get('const.passphrase_for_secretary')) {
+                $role = \Config::get('const.role_of_secretary');
+            }
+        }
+        // User登録
+        $users = new User();
+        $users->name = $data['name'];
+        $users->role = $role;
+        $users->email = $data['email'];
+        $users->password = bcrypt($data['password']);
+        $users->save();
+        // Member登録
+        $data = [
+            'name' => $users->name,
+            'user_id' => $users->id,
+            'description' => ''
+        ];
+        $members = new Member();
+        $members->name = $data['name'];
+        $members->user_id = $data['user_id'];
+        $members->description = $data['description'];
+        $members->save();
+        // 返却
+        return $users;
     }
 
     /**
@@ -88,7 +103,7 @@ class RegisterController extends Controller
     {
         //
         if (empty($passphrase) === true) {
-        	return redirect('/')->with('message', 'このリンクは使用できません。');
+            return redirect('/')->with('message', 'このリンクは使用できません。');
         }
         
         return view('auth.register', compact('passphrase'));
