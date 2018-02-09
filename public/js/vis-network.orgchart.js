@@ -98,6 +98,10 @@ function draw(data) {
 			$(".modal-title").text(data.node.label);
 			$("[name='orgchartMember\[orgchart_node_id\]']").val("");
 			$("[name='orgchartMember\[orgchart_node_id\]']").val(data.node.id);
+			// modal内のフォーム初期化
+			$(".member-id").find("select").val("");
+			$(".member-name").find("input").val("");
+			// modalセット
 			$('#myModal').modal('toggle');
 			
 			// メンバー表示

@@ -124,6 +124,9 @@ $(function(){
                 <span>" + data.name + "</span>\
               </li>\
             ");
+            // フォームの状態を初期化
+            $(".member-id").find("select").val("");
+            $(".member-name").find("input").val("");
             // セレクトボックスから登録されたメンバーを削除
         })
         .fail(function(data){
