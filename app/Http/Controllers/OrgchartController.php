@@ -165,7 +165,11 @@ class OrgchartController extends Controller
                          ->toArray();
         // ノードメンバー取得
         $model_orgchart_member = new OrgchartMember();
-        $data['member'] = $model_orgchart_member->select('members.id', 'members.name')
+        $data['member'] = $model_orgchart_member->select(
+                'orgchart_members.id as orgchart_member_id',
+                'members.id',
+                'members.name'
+            )
             ->join('members', 'orgchart_members.member_id', '=', 'members.id')
             ->where('orgchart_members.orgchart_node_id', $id)
             ->get()
@@ -217,14 +221,19 @@ class OrgchartController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Delete the orgchart member.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function delete_member(Request $request)
     {
-        //
+        // モデル
+        $orgchart_members = new OrgchartMember();
+        // 削除
+        $orgchart_members->destroy($request->id);
+        // 返却
+        return response()->json(['result' => 'success']);
     }
 
     /**

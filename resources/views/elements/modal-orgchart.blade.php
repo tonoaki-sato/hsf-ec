@@ -56,7 +56,7 @@
             
           <!-- メンバー表示 -->
           <div class="col-md-8 col-md-offset-2">
-            <ul class="modal-member list-inline">
+            <ul class="modal-member list-inline" data-user-role="{{ $role }}">
             </ul>
           </div>
           
@@ -86,6 +86,31 @@ $(function(){
         // テキストフォームを入力不可にする
         $(".member-name").find("input").val("").prop("disabled", true);
         $(".member-name").find("input").prop("required", false);
+    });
+    // 「x」リンククリック
+    $(document).on("click", ".orgchart-member-delete", function(){
+        // 処理実行確認
+        var do_delete = confirm("登録を取り消しますか？");
+        if (do_delete === false) {
+            return false;
+        }
+        // ajax処理のため自オブジェクトをコピー
+        var self = this;
+        // orgchart_membersのid取得
+        var orgchart_member_id = $(this).data("orgchartMemberId");
+        // メンバー削除
+        $.ajax({
+            url: '/api/orgcharts/delete_member',
+            type: 'post',
+            data: {id: orgchart_member_id}
+        })
+        .done(function(data){
+            // 自オブジェクトを削除
+            $(self).closest("li").remove();
+        })
+        .fail(function(data){
+            console.log('error');
+        });
     });
     // 登録ボタンクリック
     $(document).on("click", ".btn-submit", function(){

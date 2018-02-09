@@ -94,6 +94,9 @@ function draw(data) {
             type: 'get',
         })
         .done(function(data){
+			// アクセスユーザーのロール取得
+			var role = $(".modal-member").data("userRole");
+			
 			$(".modal-title").text("");
 			$(".modal-title").text(data.node.label);
 			$("[name='orgchartMember\[orgchart_node_id\]']").val("");
@@ -107,11 +110,22 @@ function draw(data) {
 			// メンバー表示
 			$(".modal-member").empty();
 			$(data.member).each(function(idx, elm){
-    			$(".modal-member").append("\
-                  <li>\
-                    <span>" + elm.name + "</span>\
-                  </li>\
-    			");
+    			if (role === 'secretary') {
+        			$(".modal-member").append('\
+                      <li>\
+                        <span>' + elm.name + '</span>\
+                        <span>\
+                          <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + elm.orgchart_member_id + '">x</a>\
+                        </span>\
+                      </li>\
+        			');
+    			} else {
+        			$(".modal-member").append('\
+                      <li>\
+                        <span class="orgchart-member">' + elm.name + '</span>\
+                      </li>\
+        			');
+    			}
 			});
 			// セレクトボックス作成
 			var obj = $(".member-id").find("select");
