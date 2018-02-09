@@ -20,7 +20,7 @@
               <div class="form-group{{ $errors->has('orgchartMember[member_id]') ? ' has-error' : '' }} member-id">
                 <label for="orgchartMember[member_id]" class="col-md-2 control-label">メンバー</label>
                 <div class="col-md-8">
-                  <select id="orgchartMember[member_id]" class="form-control" name="orgchartMember[member_id]" value="{{ old('member_id')  }}" requird>
+                  <select id="orgchartMember[member_id]" class="form-control" name="orgchartMember[member_id]" value="{{ old('member_id')  }}" required>
                   </select>
                   @if ($errors->has('orgchartMember[member_id]'))
                     <span class="help-block">
@@ -67,22 +67,51 @@
 @push('script')
 <script>
 $(function(){
+    // テキストフォームクリック
     $(document).on("click", ".member-name", function(){
+        // 入力可能にする
         $(this).find("input").prop("disabled", false);
+        // 必須属性を付与する
+        $(this).find("input").prop("required", true);
+        // セレクトボックスを入力不可にする
         $(".member-id").find("select").val("").prop("disabled", true);
+        $(".member-id").find("select").prop("required", false);
     });
+    // セレクトボックスクリック
     $(document).on("click", ".member-id", function(){
+        // 入力可能にする
         $(this).find("select").prop("disabled", false);
+        // 必須属性を付与する
+        $(this).find("select").prop("required", true);
+        // テキストフォームを入力不可にする
         $(".member-name").find("input").val("").prop("disabled", true);
+        $(".member-name").find("input").prop("required", false);
     });
+    // 登録ボタンクリック
     $(document).on("click", ".btn-submit", function(){
+        var valid = true;
         var data = {};
         var formObj = $(this).closest("form");
         $(formObj).find("input,select").each(function(idx, obj){
+            // disabled属性のフォームは飛ばす
+            if ($(obj).prop("disabled") === true) {
+                return true;
+            }
+            // キーと値を取得
             var key = $(obj).attr("name");
             var val = $(obj).val();
+            // 必須項目チェック
+            if ($(obj).prop("required") === true && val === "") {
+                valid = false;
+                return false;
+            }
             data[key] = val;
         });
+        // 必須エラー
+        if (valid === false) {
+            confirm("メンバーを選択してください。");
+            return false;
+        }
         $.ajax({
             url: '/api/orgcharts/add_member',
             type: 'post',
