@@ -113,10 +113,22 @@ class OrgchartController extends Controller
     public function delete_node(Request $request)
     {
         // モデル
-        $model = new OrgchartNode;
-        // 削除
-        $model->destroy($request->id);
-        //
+        $orgchart_node = new OrgchartNode();
+        // ノード削除
+        $orgchart_node->destroy($request->id);
+        // モデル
+        $orgchart_member = new OrgchartMember();
+        // ノードメンバー取得
+        $members = $orgchart_member
+            ->select('id')
+            ->where('orgchart_node_id', $request->id)
+            ->get()
+            ->toArray();
+        // ノードメンバーがあれば削除
+        if (empty($members) === false) {
+            $orgchart_member->destroy($members);
+        }
+        // 返却
         return response()->json(['result' => 'success']);
     }
 
