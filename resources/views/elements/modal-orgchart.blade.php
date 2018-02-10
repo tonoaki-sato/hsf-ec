@@ -101,6 +101,10 @@ $(function(){
         var self = this;
         // orgchart_membersのid取得
         var orgchart_member_id = $(this).data("orgchartMemberId");
+        // membersのid取得
+        var member_id = $(this).data("memberId");
+        // membersのname取得
+        var member_name = $(this).data("memberName");
         // メンバー削除
         $.ajax({
             url: '/api/orgcharts/delete_member',
@@ -110,6 +114,10 @@ $(function(){
         .done(function(data){
             // 自オブジェクトを削除
             $(self).closest("li").remove();
+            // セレクトボックスに削除されたメンバーを追加
+            $(".member-id").find("select").append('\
+                <option value="' + member_id + '">' + member_name + '</option>\
+            ');
         })
         .fail(function(data){
             console.log('error');
@@ -152,7 +160,7 @@ $(function(){
                   <li>\
                     <span class="orgchart-member">' + data.name + '</span>\
                     <span>\
-                      <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + data.orgchart_member_id + '">x</a>\
+                      <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + data.orgchart_member_id + '" data-member-id="' + data.id + '" data-member-name="' + data.name + '">x</a>\
                     </span>\
                   </li>\
                 ');

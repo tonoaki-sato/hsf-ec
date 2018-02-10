@@ -115,7 +115,7 @@ function draw(data) {
                       <li>\
                         <span class="orgchart-member">' + elm.name + '</span>\
                         <span>\
-                          <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + elm.orgchart_member_id + '">x</a>\
+                          <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + elm.orgchart_member_id + '" data-member-id="' + elm.id + '" data-member-name="' + elm.name + '">x</a>\
                         </span>\
                       </li>\
         			');
