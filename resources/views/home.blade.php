@@ -19,6 +19,10 @@
                       </a>
                     </div>
                     <div>
+                      <a href="{{ route('profile') }}">プロフィール
+                      </a>
+                    </div>
+                    <div>
                       <a href="{{ route('minutes') }}">議事録
                       </a>
                     </div>
