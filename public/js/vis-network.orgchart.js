@@ -113,7 +113,7 @@ function draw(data) {
     			if (role === 'secretary') {
         			$(".modal-member").append('\
                       <li>\
-                        <span>' + elm.name + '</span>\
+                        <span class="orgchart-member">' + elm.name + '</span>\
                         <span>\
                           <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + elm.orgchart_member_id + '">x</a>\
                         </span>\

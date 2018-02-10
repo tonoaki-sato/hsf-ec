@@ -150,7 +150,7 @@ $(function(){
             if (role === 'secretary') {
                 $(".modal-member").append('\
                   <li>\
-                    <span>' + data.name + '</span>\
+                    <span class="orgchart-member">' + data.name + '</span>\
                     <span>\
                       <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + data.orgchart_member_id + '">x</a>\
                     </span>\
@@ -167,6 +167,12 @@ $(function(){
             $(".member-id").find("select").val("");
             $(".member-name").find("input").val("");
             // セレクトボックスから登録されたメンバーを削除
+            $(".member-id").find("option").each(function(ind, obj){
+                // オプションの値と登録メンバーのIDが一致
+                if (parseInt(data.id) === parseInt($(obj).val())) {
+                    $(obj).remove();
+                }
+            });
         })
         .fail(function(data){
             console.log('error');
