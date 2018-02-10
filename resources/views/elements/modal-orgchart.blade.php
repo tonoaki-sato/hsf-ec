@@ -67,6 +67,9 @@
 @push('script')
 <script>
 $(function(){
+    // グローバル変数
+    var role = $(".modal-member").data("userRole");
+
     // テキストフォームクリック
     $(document).on("click", ".member-name", function(){
         // 入力可能にする
@@ -144,11 +147,22 @@ $(function(){
         })
         .done(function(data){
             // メンバーをリストに追記
-            $(".modal-member").append("\
-              <li>\
-                <span>" + data.name + "</span>\
-              </li>\
-            ");
+            if (role === 'secretary') {
+                $(".modal-member").append('\
+                  <li>\
+                    <span>' + data.name + '</span>\
+                    <span>\
+                      <a href="javascript:void(0);" class="orgchart-member-delete" data-orgchart-member-id="' + data.orgchart_member_id + '">x</a>\
+                    </span>\
+                  </li>\
+                ');
+            } else {
+                $(".modal-member").append('\
+                  <li>\
+                    <span class="orgchart-member">' + data.name + '</span>\
+                  </li>\
+                ');
+            }
             // フォームの状態を初期化
             $(".member-id").find("select").val("");
             $(".member-name").find("input").val("");

@@ -193,29 +193,34 @@ class OrgchartController extends Controller
      */
     public function add_member(Request $request)
     {
-        //
+        // モデル Member
+        $members = new Member();
+        // モデル OrgchartMember
+        $orgchart_members = new OrgchartMember();
+        // リクエストパラメータ取得
         $input = $request->all();
-        //
+        
+        // member.name 指定の場合
         if (empty($input['member']['name']) === false) {
             // Member 登録
-            $model = new Member();
-            $model->name = $input['member']['name'];
-            $model->description = '';
-            $model->save();
+            $members->name = $input['member']['name'];
+            $members->description = '';
+            $members->save();
             // MemberId セット
-            $input['orgchartMember']['member_id'] = $model->id;
+            $input['orgchartMember']['member_id'] = $members->id;
         }
         // OrgchartMember 登録
-        $model = new OrgchartMember();
-        $model->member_id = $input['orgchartMember']['member_id'];
-        $model->orgchart_node_id = $input['orgchartMember']['orgchart_node_id'];
-        $model->description = '';
-        $model->save();
+        $orgchart_members->member_id = $input['orgchartMember']['member_id'];
+        $orgchart_members->orgchart_node_id = $input['orgchartMember']['orgchart_node_id'];
+        $orgchart_members->description = '';
+        $orgchart_members->save();
+        
         // 登録されたメンバーのレコード取得
-        $model = new Member();
-        $data = $model->where('id', $input['orgchartMember']['member_id'])
+        $data = $members->where('id', $input['orgchartMember']['member_id'])
               ->first()
               ->toArray();
+        // 返却データにOrgchartMemberIdをセット
+        $data['orgchart_member_id'] = $orgchart_members->id;
         // 返却
         return response()->json($data);
     }
