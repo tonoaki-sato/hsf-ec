@@ -10,8 +10,9 @@
         <div class="panel-heading">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
               <li class="breadcrumb-item"><a href="{{ route('minutes') }}">議事録</a></li>
-              <li class="breadcrumb-item active" aria-current="page">議事録を見る</li>
+              <li class="breadcrumb-item active" aria-current="page">見る</li>
             </ol>
           </nav>
         </div>

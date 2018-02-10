@@ -31,17 +31,20 @@
                     </button>
 
                     <!-- Branding Image -->
+                    @auth
+                    <a class="navbar-brand" href="{{ route('home') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                    @else
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    @endauth
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                    @auth
-                        <li><a href="{{ route('home') }}">ダッシュボード</a></li>
-                    @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

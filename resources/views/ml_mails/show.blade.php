@@ -10,7 +10,8 @@
         <div class="panel-heading">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ route('ml_mails') }}">メーリングリスト</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('ml_mails') }}">ML</a></li>
               <li class="breadcrumb-item active" aria-current="page">メールを読む</li>
             </ol>
           </nav>
