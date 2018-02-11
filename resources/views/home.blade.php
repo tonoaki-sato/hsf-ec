@@ -34,6 +34,10 @@
                       <a href="{{ route('orgcharts') }}">組織図
                       </a>
                     </div>
+                    <div>
+                      <a href="{{ route('schedules') }}">スケジュール
+                      </a>
+                    </div>
                     <br />
                     ・スケジュール（一覧、見る、作る）<br />
                 </div>

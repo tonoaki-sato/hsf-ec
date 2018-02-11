@@ -24,3 +24,9 @@ Route::post('/orgcharts/delete_edge', 'OrgchartController@delete_edge')->name('o
 Route::get('/orgcharts/show_node/{id}', 'OrgchartController@show_node')->name('orgcharts.show_node');
 Route::post('/orgcharts/add_member', 'OrgchartController@add_member')->name('orgcharts.add_member');
 Route::post('/orgcharts/delete_member', 'OrgchartController@delete_member')->name('orgcharts.delete_member');
+// schedules
+Route::get('/schedules/show', 'ApiScheduleController@show')->name('api_schedule.show');
+//
+Route::get('/schedule_groups/show', 'ApiScheduleGroupController@show')->name('api_schedule_groups.show');
+//
+Route::get('/schedule_items/show', 'ApiScheduleItemController@show')->name('api_schedule_items.show');
